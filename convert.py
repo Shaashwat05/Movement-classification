@@ -4,9 +4,9 @@ import pandas as pd
 import numpy as np
 import pickle
 
-'''for path in glob.glob('/home/shaashwatlobnikki/Desktop/pose_classification/data/*/'):
+for path in glob.glob('/home/shaashwatlobnikki/Desktop/pose_classification/data/*/'):
     for bvh in glob.glob(path+'*.bvh'):
-        os.system("bvh-converter "+ bvh)'''
+        os.system("bvh-converter "+ bvh)
 
 
 for path in glob.glob('/home/shaashwatlobnikki/Desktop/pose_classification/data/*/'):
@@ -25,7 +25,7 @@ for path in glob.glob('/home/shaashwatlobnikki/Desktop/pose_classification/data/
             else:
                 coors.append(dat[col].values.tolist())
         
-        ind = [26, 27, 28, 32, 33, 34, 4, 5, 6, 13, 14, 15, 23]
+        ind = [27, 28, 29, 33, 34, 35, 5, 6, 7, 14, 15, 16, 23]
 
         for i in range(len(coors[0])):
             coord = []
