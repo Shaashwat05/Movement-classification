@@ -10,14 +10,15 @@ import pandas as pd
 gpus = tf.config.experimental.get_visible_devices("GPU")
 for gpu in gpus:
     tf.config.experimental.set_memory_growth(gpu,True)
-    print("hi")
-    
-info = pd.read_excel('cmu-mocap-index-spreadsheet.xls')
-#info = info.iloc[1:]
-info = info.drop(['SUBJECT from CMU web database'], axis=1)
 
 x  = []
 y = []
+tot = walk + run + jump
+seq = []
+seq_len = 150
+    
+info = pd.read_excel('cmu-mocap-index-spreadsheet.xls')
+info = info.drop(['SUBJECT from CMU web database'], axis=1)
 
 walk = info.loc[info['DESCRIPTION from CMU web database'] == 'walk']
 walk = walk['MOTION'].values.tolist()
@@ -28,9 +29,6 @@ run = run['MOTION'].values.tolist()
 jump = info.loc[info['DESCRIPTION from CMU web database'] == 'jump']
 jump = jump['MOTION'].values.tolist()
 
-tot = walk + run + jump
-seq = []
-seq_len = 150
 
 for ex in tot:
     pickle_in = open('/home/shaashwatlobnikki/Desktop/movement_classification/pickle_data/'+ ex +'_worldpos.pickle',"rb")
@@ -52,16 +50,12 @@ for fileno in range(len(seq)):
             y.append(3)
 
 X= np.array(x)
-
-#X = np.reshape(x, (len(x), seq_len, 1))
-#X =X/ float(n_vocab)
+X = np.reshape(X, (X.shape[0], X.shape[1]*X.shape[2]*X.shape[3]))
+print(X.shape)
 
 y = utils.to_categorical(y)
 
-print(y)
-
-
-
+print(y.shape)
 
 model = Sequential()
 model.add(LSTM(256, input_shape = (X.shape[0], X.shape[1]), return_sequences=True))
@@ -70,6 +64,13 @@ model.add(LSTM(256))
 model.add(Dropout(0.2))
 model.add(Dense(y.shape[1], activation='softmax'))
 model.compile(loss = 'categorical_crossentropy', optimizer='adam')
+
+filepath = "weights/weights-improvement-{epoch:02d}-{loss:.4f}-biggeer.hdf5"
+checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose = 1, save_best_only=True, mode = 'min')
+callbacks_list = [checkpoint]
+
+model.fit(X, y, epochs = 50, batch_size=64, callbacks=callbacks_list)
+
 
 
 
