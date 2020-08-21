@@ -3,12 +3,16 @@
 [![Python 3.8](https://img.shields.io/badge/python-3.8-green.svg)](https://www.python.org/downloads/release/python-380/) 
 
 # Movement-classification
-The aim of the project is to classify types of **Movements** instead of just single **Postures**. It is a combination of aa lot of components and ideas put together.
+The aim of the project is to classify types of **Movements** instead of just single **Postures**. It is a combination of a lot of components and ideas put together.
+
+### BVH file
+ **BVH(BioVision Hierarchy)** is a file format used to define a skeleton structure and its connections. It is a **Motion capture** file which stores position/rotation of each joint per frame. The movements can be viewed directly by importing this file or also by imparting this movement to 3d Characters/Rig.
+ 
+ ### CMU dataset
+ The **Carnegie Mellon University** [dataset](https://sites.google.com/a/cgspeed.com/cgspeed/motion-capture/cmu-bvh-conversion) contains about 2500 BVH files accounting for various types of movements. Basic movements such as walking, running, jumping have many references and files. Some complex movements such as swordplay or cartwheel are also included in the dataset.
 
 
-
-
-### Prerequisites
+## Prerequisites
 
 What things you need to install the software and how to install them
 
@@ -20,7 +24,6 @@ cv2
 glob
 pandas
 os
-
 ```
 
 ## Getting Started
