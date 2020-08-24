@@ -4,14 +4,17 @@ import pandas as pd
 import numpy as np
 import pickle
 
-for path in glob.glob('/home/shaashwatlobnikki/Desktop/pose_classification/data/*/'):
+
+for path in glob.glob('/home/shaashwatlobnikki/Desktop/movement_classification/data/*/'):
     for bvh in glob.glob(path+'*.bvh'):
+        bvh = bvh[bvh.index('data'):]
+        #if(bvh[bvh.rindex('/')+1:-7] in arr):  
         os.system("bvh-converter "+ bvh)
 
 
-for path in glob.glob('/home/shaashwatlobnikki/Desktop/pose_classification/data/*/'):
+for path in glob.glob('/home/shaashwatlobnikki/Desktop/movement_classification/data/*/'):
     for path2 in glob.glob(path+'*.csv'):
-        print(path2)
+        #print(path2)
 
         dat = pd.read_csv(path2)
         dat = dat.drop(['Time'], axis=1)
@@ -31,8 +34,8 @@ for path in glob.glob('/home/shaashwatlobnikki/Desktop/pose_classification/data/
             coord = []
             for j in range(len(coors)//2):
                 if(j in ind):
-                    coord.append([int(coors[j*2][i]), int(coors[j*2+1][i])])
-            coors_final.append(coord)
+                    coord.append([int(coors[j*2][i]*15), int(coors[j*2+1][i]*15)])
+            coors_final.append(coord), 
 
 
         pickle_out = open('pickle_data'+path2[path2.rindex('/'):len(path2)-3]+'pickle',"wb")

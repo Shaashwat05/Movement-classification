@@ -26,7 +26,7 @@ if gpus:
 x  = []
 y = []
 seq = []
-seq_len = 150
+seq_len = 100
     
 info = pd.read_excel('cmu-mocap-index-spreadsheet.xls')
 info = info.drop(['SUBJECT from CMU web database'], axis=1)
@@ -59,36 +59,38 @@ for fileno in range(len(seq)):
         x.append(seq[fileno][i:i+seq_len])
        
         if(tot[fileno] in walk):
-            y.append(1)
+            y.append(0)
         elif(tot[fileno] in run):
-            y.append(2)
+            y.append(1)
         else:
-            y.append(3)
+            y.append(2)
 
-X= np.array(x)
-X = np.reshape(X, (X.shape[0], X.shape[1]*X.shape[2]*X.shape[3], 1))
+###   (4320,150,13,2) ---->>>   (4320, 3900)
+
+X= np.asarray(x)
+X = np.reshape(X, (X.shape[0], X.shape[1],X.shape[2]*X.shape[3]))
 X= X/np.max(X)
 print(X.shape)
 
 y = utils.to_categorical(y)
 
-print(y.shape)
+#print(y.shape)
 
 model = Sequential()
 model.add(LSTM(256, input_shape = (X.shape[1], X.shape[2]), return_sequences=True))
 model.add(Dropout(0.2))
 model.add(LSTM(256))
 model.add(Dropout(0.2))
-model.add(Dense(y.shape[1], activation='softmax'))
-model.compile(loss = 'categorical_crossentropy', optimizer='adam')
+model.add(Dense(3, activation='softmax'))
+model.compile(loss = 'categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 model.summary()
 
-filepath = "weights/weights-improvement-{epoch:02d}-{loss:.4f}-biggeer.hdf5"
+filepath = "weights-improvement-{epoch:02d}-{loss:.4f}-biggeer.hdf5"
 checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose = 1, save_best_only=True, mode = 'min')
 callbacks_list = [checkpoint]
 
-model.fit(X, y, epochs = 10, batch_size=33, callbacks=callbacks_list)
+#model.fit(X, y, epochs = 10, batch_size=16, callbacks=callbacks_list)
 
 
 
