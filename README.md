@@ -10,6 +10,9 @@ The aim of the project is to classify types of **Movements** instead of just sin
  
  ### CMU dataset
  The **Carnegie Mellon University** [dataset](https://sites.google.com/a/cgspeed.com/cgspeed/motion-capture/cmu-bvh-conversion) contains about 2500 BVH files accounting for various types of movements. Basic movements such as walking, running, jumping have many references and files. Some complex movements such as swordplay or cartwheel are also included in the dataset.
+ 
+ ### Pose Estimation
+ The aim of the project is to identify and classify movements in live feed. The **tflite model** is used as the pose estimation AI. It gives **17 keypoints** in the body. It takes very less computation and is easy to work with.
 
 
 ## Prerequisites
