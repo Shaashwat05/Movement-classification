@@ -12,8 +12,10 @@ The aim of the project is to classify types of **Movements** instead of just sin
  The **Carnegie Mellon University** [dataset](https://sites.google.com/a/cgspeed.com/cgspeed/motion-capture/cmu-bvh-conversion) contains about 2500 BVH files accounting for various types of movements. Basic movements such as walking, running, jumping have many references and files. Some complex movements such as swordplay or cartwheel are also included in the dataset.
  
  ### Pose Estimation
- The aim of the project is to identify and classify movements in live feed. The **tflite model** is used as the pose estimation AI. It gives **17 keypoints** in the body. It takes very less computation and is easy to work with.
+ The aim of the project is to identify and classify movements in live feed. The [**tflite model**](https://storage.googleapis.com/download.tensorflow.org/models/tflite/posenet_mobilenet_v1_100_257x257_multi_kpt_stripped.tflite) is used as the pose estimation AI. It gives **17 keypoints** in the body. It takes very less computation and is easy to work with.
 
+### Model
+I have used **Tensorflow** to train the dataset. A **Dense LSTM** model is used since the data is sequential. It is a time series data of about 120 frames per second and fits perfectly to LSTMs. The current version is being trained on jumping, running and walking with an input shape of (150,26). The output is a **Softmax** layer with categorical output. To summarize, the task is a **time series classification** task trained similar to most NLP models.
 
 ## Prerequisites
 
