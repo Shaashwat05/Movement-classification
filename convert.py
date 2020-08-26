@@ -5,16 +5,19 @@ import numpy as np
 import pickle
 
 
-for path in glob.glob('/home/shaashwatlobnikki/Desktop/movement_classification/data/*/'):
+arr = ['02', '05', '06', '07', '09', '13', '16'] 
+
+
+'''for path in glob.glob('/home/shaashwatlobnikki/Desktop/movement_classification/data/*/'):
     for bvh in glob.glob(path+'*.bvh'):
         bvh = bvh[bvh.index('data'):]
-        #if(bvh[bvh.rindex('/')+1:-7] in arr):  
-        os.system("bvh-converter "+ bvh)
+        if(bvh[bvh.rindex('/')+1:-7] in arr):  
+            os.system("bvh-converter "+ bvh)'''
 
 
 for path in glob.glob('/home/shaashwatlobnikki/Desktop/movement_classification/data/*/'):
     for path2 in glob.glob(path+'*.csv'):
-        #print(path2)
+        print(path2)
 
         dat = pd.read_csv(path2)
         dat = dat.drop(['Time'], axis=1)

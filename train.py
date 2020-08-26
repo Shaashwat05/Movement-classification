@@ -33,25 +33,25 @@ info = info.drop(['SUBJECT from CMU web database'], axis=1)
 
 walk = info.loc[info['DESCRIPTION from CMU web database'] == 'walk']
 walk = walk['MOTION'].values.tolist()
-walk = walk[:13]
+walk = walk[:6]
 
 run = info.loc[info['DESCRIPTION from CMU web database'] == 'run']
 run = run['MOTION'].values.tolist()
-print(run)
-run = run[:13]
+run = run[:6]
 
 jump = info.loc[info['DESCRIPTION from CMU web database'] == 'jump']
 jump = jump['MOTION'].values.tolist()
-jump = jump[:13]
+jump = jump[:6]
 
 tot = walk + run + jump
+print(jump)
 
 for ex in tot:
     pickle_in = open('/home/shaashwatlobnikki/Desktop/movement_classification/pickle_data/'+ ex +'_worldpos.pickle',"rb")
     data = pickle.load(pickle_in)
 
     seq.append(data)
-
+print(tot)
 
 for fileno in range(len(seq)):
     #seq[fileno] = seq[fileno][:-(len(seq[fileno])%300)]
@@ -65,7 +65,7 @@ for fileno in range(len(seq)):
         else:
             y.append(2)
 
-###   (4320,150,13,2) ---->>>   (4320, 3900)
+###   (4320,150,13,2) ---->>>   (4320, 150, 26)
 
 X= np.asarray(x)
 X = np.reshape(X, (X.shape[0], X.shape[1],X.shape[2]*X.shape[3]))
@@ -90,8 +90,9 @@ filepath = "weights-improvement-{epoch:02d}-{loss:.4f}-biggeer.hdf5"
 checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose = 1, save_best_only=True, mode = 'min')
 callbacks_list = [checkpoint]
 
-#model.fit(X, y, epochs = 10, batch_size=16, callbacks=callbacks_list)
+model.fit(X, y, epochs = 30, batch_size=32, callbacks=callbacks_list)
 
+print(y[1000])
 
 
 

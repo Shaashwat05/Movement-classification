@@ -20,17 +20,17 @@ if gpus:
 
 x  = []
 
-model = load_model("weights-improvement-10-0.4311-biggeer.hdf5", compile=False)
+model = load_model("weights-improvement-11-0.0002-biggeer.hdf5", compile=False)
 
-pickle_in = open('/home/shaashwatlobnikki/Desktop/movement_classification/pickle_data/09_03_worldpos.pickle',"rb")
+pickle_in = open('/home/shaashwatlobnikki/Desktop/movement_classification/pickle_data/13_40_worldpos.pickle',"rb")
 data = pickle.load(pickle_in)
 
-data = data[:150]
+data = data[:100]
 data = np.array(data)
 
 
-data = np.reshape(data, (1, data.shape[0]*data.shape[1]*data.shape[2], 1))
-
+data = np.reshape(data, (1, data.shape[0],data.shape[1]*data.shape[2]))
+print(data.shape)
 
 print(model.predict_classes(data))
 
