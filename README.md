@@ -6,10 +6,20 @@
 The aim of the project is to classify types of **Movements** instead of just single **Postures**. It is a combination of a lot of components and ideas put together.
 
 ### BVH file
- **BVH(BioVision Hierarchy)** is a file format used to define a skeleton structure and its connections. It is a **Motion capture** file which stores position/rotation of each joint per frame. The movements can be viewed directly by importing this file or also by imparting this movement to 3d Characters/Rig.
+ **BVH(BioVision Hierarchy)** is a file format used to define a skeleton structure and its connections. It is a **Motion capture** file which stores position/rotation of each joint per frame. The movements can be viewed directly by importing this file or also by imparting this movement to 3d Characters/Rig. You can see the an example of the structure defination of the file below.
+ 
+ #### Example
+![Watch the video](https://github.com/Shaashwat05/Movement-classification/blob/master/images/bvh1.jpg)
  
  ### CMU dataset
  The **Carnegie Mellon University** [dataset](https://sites.google.com/a/cgspeed.com/cgspeed/motion-capture/cmu-bvh-conversion) contains about 2500 BVH files accounting for various types of movements. Basic movements such as walking, running, jumping have many references and files. Some complex movements such as swordplay or cartwheel are also included in the dataset.
+ 
+ ### Visualization
+ The visualization of the CMU dataset is done using **OpenCV**. By running visulaize.py you can see the output in the OpenCV window.This example show below is somewhat slower than the actual fps of the data. It can be changed esily in the code.
+ 
+ ![Watch the gif](https://github.com/Shaashwat05/Movement-classification/blob/master/images/viz.gif)
+ 
+ 
  
  ### Pose Estimation
  The aim of the project is to identify and classify movements in live feed. The [**tflite model**](https://storage.googleapis.com/download.tensorflow.org/models/tflite/posenet_mobilenet_v1_100_257x257_multi_kpt_stripped.tflite) is used as the pose estimation AI. It gives **17 keypoints** in the body. It takes very less computation and is easy to work with.
