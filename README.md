@@ -1,6 +1,8 @@
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
 [![Python 3.8](https://img.shields.io/badge/python-3.8-green.svg)](https://www.python.org/downloads/release/python-380/) 
+![VS Code](https://aleen42.github.io/badges/src/visual_studio_code.svg)
+![Tensorflow](https://aleen42.github.io/badges/src/tensorflow.svg)
 
 # Movement-classification
 The aim of the project is to classify types of **Movements** instead of just single **Postures**. It is a combination of a lot of components and ideas put together.
