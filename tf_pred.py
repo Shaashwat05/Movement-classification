@@ -54,12 +54,13 @@ while True:
         break
     frame1=imgprep(frame)
     dots, jk=poseproc(frame1)
-    poses.append(dots)
+    poses.append(dots[0] + dots[5:])
     frame1=frame1*127.5+127.5
     thresh=0.03
     frame1=np.uint8(cv2.cvtColor(frame1.reshape((257,257,3)), cv2.COLOR_BGR2RGB))
     if(len(poses)>100):
-        mvmt = model.predict(poses[-100:-1].reshape(len(poses), len(poses[0])*len(poses[0][0])))
+
+        mvmt = model.predict(np.array(poses[-100:-1]).reshape(100, 26))
         print(mvmt)
         
     
