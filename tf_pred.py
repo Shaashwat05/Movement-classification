@@ -5,6 +5,21 @@ import cv2
 import numpy as np
 from tensorflow.keras.models import load_model
 
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+    try:
+        # Restrict TensorFlow to only use the fourth GPU
+        tf.config.experimental.set_visible_devices(gpus[0], 'GPU')
+
+        # Currently, memory growth needs to be the same across GPUs
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+        logical_gpus = tf.config.experimental.list_logical_devices('GPU')
+        print(len(gpus), "Physical GPUs,", len(logical_gpus), "Logical GPUs")
+    except RuntimeError as e:
+        # Memory growth must be set before GPUs have been initialized
+        print(e)
+
 
 model = load_model("weights-improvement-17-0.0000-biggeer.hdf5")
 
@@ -54,14 +69,14 @@ while True:
         break
     frame1=imgprep(frame)
     dots, jk=poseproc(frame1)
-    poses.append(dots[0] + dots[5:])
+    poses.append(dots[0] + dots[4:])
     frame1=frame1*127.5+127.5
     thresh=0.03
     frame1=np.uint8(cv2.cvtColor(frame1.reshape((257,257,3)), cv2.COLOR_BGR2RGB))
     if(len(poses)>100):
-
-        mvmt = model.predict(np.array(poses[-100:-1]).reshape(100, 26))
-        print(mvmt)
+        mvmt = model.predict(np.array(poses[-101:-1]).reshape(1, 100, 26))
+        print(np.argmax(mvmt))
+        poses = poses[50:]
         
     
     cv2.imshow("im",cv2.resize(frame1,(512,512)))
