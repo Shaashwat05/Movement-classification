@@ -29,6 +29,14 @@ The aim of the project is to classify types of **Movements** instead of just sin
 ### Model
 I have used **Tensorflow** to train the dataset. A **Dense LSTM** model is used since the data is sequential. It is a time series data of about 120 frames per second and fits perfectly to LSTMs. The current version is being trained on jumping, running and walking with an input shape of (150,26). The output is a **Softmax** layer with categorical output. To summarize, the task is a **time series classification** task trained similar to most NLP models.
 
+```
+$train.py
+```
+
+Run the above file to perform preprocessing and train the model. The model weights will be saved for each epoch with better accuracy using **Callbacks**.
+
+
+
 ## Prerequisites
 
 What things you need to install the software and how to install them
@@ -46,7 +54,7 @@ bvh-converter
 
 ## Getting Started
 
-Download a python interpeter preferable a version beyond 3.0. Install the prerequisute libraries given above.
+Download a python interpeter preferable a version beyond 3.0. Install the prerequisute libraries given above preferably using the latest version of pip/pip3. Download the CMU Dataset from the link provided, extract and run convert.py to preprocees the data. This data can directly be used for either visualization or training the model. The only will predicttion work.
 
 ```
 $tconvert.py
