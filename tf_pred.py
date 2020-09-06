@@ -76,6 +76,12 @@ while True:
     if(len(poses)>100):
         mvmt = model.predict(np.array(poses[-101:-1]).reshape(1, 100, 26))
         print(np.argmax(mvmt))
+        if(mvmt == 0):
+            cv2.putText(frame1,'Walking',(10,500), 1,(255,255,255),2)
+        elif(mvmt == 1):
+            cv2.putText(frame1,'Running',(10,500), 1,(255,255,255),2)
+        else:
+            cv2.putText(frame1,'Jumping',(10,500), 1,(255,255,255),2) 
         poses = poses[50:]
         
     
