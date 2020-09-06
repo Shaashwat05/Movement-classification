@@ -21,7 +21,7 @@ if gpus:
         print(e)
 
 
-model = load_model("weights-improvement-17-0.0000-biggeer.hdf5")
+model = load_model("weights-improvement-08-0.1038-biggeer.hdf5")
 
 
 def imgprep(img):
@@ -61,6 +61,8 @@ input_details=interpreter.get_input_details()
 output_details=interpreter.get_output_details()
 
 poses = []
+font = cv2.FONT_HERSHEY_SIMPLEX 
+txt = ''
 
 cap=cv2.VideoCapture(0)
 while True:
@@ -73,16 +75,20 @@ while True:
     frame1=frame1*127.5+127.5
     thresh=0.03
     frame1=np.uint8(cv2.cvtColor(frame1.reshape((257,257,3)), cv2.COLOR_BGR2RGB))
+
+    
     if(len(poses)>100):
         mvmt = model.predict(np.array(poses[-101:-1]).reshape(1, 100, 26))
-        print(np.argmax(mvmt))
+
+        mvmt = np.argmax(mvmt)
         if(mvmt == 0):
-            cv2.putText(frame1,'Walking',(10,500), 1,(255,255,255),2)
+            txt = 'walking'
         elif(mvmt == 1):
-            cv2.putText(frame1,'Running',(10,500), 1,(255,255,255),2)
+            txt = 'Running'
         else:
-            cv2.putText(frame1,'Jumping',(10,500), 1,(255,255,255),2) 
+            txt = 'Jumping'
         poses = poses[50:]
+    cv2.putText(frame1,txt,(100,100), font, 1,(255,255,0),2)
         
     
     cv2.imshow("im",cv2.resize(frame1,(512,512)))
