@@ -16,6 +16,12 @@ The aim of the project is to classify types of **Movements** instead of just sin
  ### CMU dataset
  The **Carnegie Mellon University** [dataset](https://sites.google.com/a/cgspeed.com/cgspeed/motion-capture/cmu-bvh-conversion) contains about 2500 BVH files accounting for various types of movements. Basic movements such as walking, running, jumping have many references and files. Some complex movements such as swordplay or cartwheel are also included in the dataset.
  
+Download the dataset from the link given. Extract all the folders present in the zip files into a single folder called data. Change the path according to the requirements and run the below file. This python file converts the unzipped CMU dataset into intermidiary CSV files using **bvh-converter** library. These files are finally converted to .pickle files that can be used for visualization as well as training.
+ 
+ ```
+$convert.py
+```
+ 
  ### Visualization
  The visualization of the CMU dataset is done using **OpenCV**. By running visulaize.py you can see the output in the OpenCV window.This example show below is somewhat slower than the actual fps of the data. It can be changed esily in the code.
  
