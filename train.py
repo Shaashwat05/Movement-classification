@@ -75,7 +75,6 @@ print(X.shape)
 y = utils.to_categorical(y)
 
 #print(y.shape)
-
 model = Sequential()
 model.add(LSTM(256, input_shape = (X.shape[1], X.shape[2]), return_sequences=True))
 model.add(Dropout(0.2))
@@ -92,7 +91,6 @@ callbacks_list = [checkpoint]
 
 model.fit(X, y, epochs = 30, batch_size=32, callbacks=callbacks_list)
 
-print(y[1000])
 
 
 

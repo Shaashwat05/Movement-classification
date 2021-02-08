@@ -5,43 +5,41 @@ import numpy as np
 import pickle
 
 
-arr = ['02', '05', '06', '07', '09', '13', '16'] 
-
-
-'''for path in glob.glob('/home/shaashwatlobnikki/Desktop/movement_classification/data/*/'):
+for path in glob.glob('/home/shaashwatlobnikki/Desktop/movement_classification/data/*/'):
     for bvh in glob.glob(path+'*.bvh'):
         bvh = bvh[bvh.index('data'):]
-        if(bvh[bvh.rindex('/')+1:-7] in arr):  
-            os.system("bvh-converter "+ bvh)'''
+        #if(bvh[bvh.rindex('/')+1:-7] in arr):  
+        os.system("bvh-converter "+ bvh)
 
 
 for path in glob.glob('/home/shaashwatlobnikki/Desktop/movement_classification/data/*/'):
     for path2 in glob.glob(path+'*.csv'):
-        print(path2)
 
-        dat = pd.read_csv(path2)
-        dat = dat.drop(['Time'], axis=1)
+        if(path2 not in path):
+            print(path2)
+            dat = pd.read_csv(path2)
+            dat = dat.drop(['Time'], axis=1)
 
-        coors = []
-        coors_final = []
+            coors = []
+            coors_final = []
 
-        for col in dat.columns:
-            if col.endswith('.Z'):
-                continue
-            else:
-                coors.append(dat[col].values.tolist())
-        
-        ind = [27, 28, 29, 33, 34, 35, 5, 6, 7, 14, 15, 16, 23]
+            for col in dat.columns:
+                if col.endswith('.Z'):
+                    continue
+                else:
+                    coors.append(dat[col].values.tolist())
+            
+            ind = [27, 28, 29, 33, 34, 35, 5, 6, 7, 14, 15, 16, 23]
 
-        for i in range(len(coors[0])):
-            coord = []
-            for j in range(len(coors)//2):
-                if(j in ind):
-                    coord.append([int(coors[j*2][i]*15), int(coors[j*2+1][i]*15)])
-            coors_final.append(coord), 
+            for i in range(len(coors[0])):
+                coord = []
+                for j in range(len(coors)//2):
+                    if(j in ind):
+                        coord.append([int(coors[j*2][i]*15), int(coors[j*2+1][i]*15)])
+                coors_final.append(coord), 
 
 
-        pickle_out = open('pickle_data'+path2[path2.rindex('/'):len(path2)-3]+'pickle',"wb")
-        pickle.dump(coors_final, pickle_out)
-        pickle_out.close()
+            pickle_out = open('pickle_data'+path2[path2.rindex('/'):len(path2)-3]+'pickle',"wb")
+            pickle.dump(coors_final, pickle_out)
+            pickle_out.close()
     
